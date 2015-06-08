@@ -1,0 +1,318 @@
+
+package pack;
+
+import java.nio.ByteBuffer;
+import java.lang.*;
+
+
+
+public class TestDefaultState
+{
+
+
+	static short mEventsBuffer = 20;
+	static short BUFFER_INCREMENT_VALUE = 10;
+	
+	public static int setBuffer(long data, byte[] buf, int off)
+    {
+    	buf[off++] = (byte)(data >>> 56);
+    	buf[off++] = (byte)(data >>> 48);
+    	buf[off++] = (byte)(data >>> 40);
+    	buf[off++] = (byte)(data >>> 32);
+        buf[off++] = (byte)(data >>> 24);
+        buf[off++] = (byte)(data >>> 16);
+        buf[off++] = (byte)(data >>> 8);
+        buf[off++] = (byte)(data & 0xff);
+        return 8;
+    }
+	
+	public static long readLong(byte[] b, int off)
+    {
+    	long data = (long) (((long) (b[off++] & 0xff) << 56)
+                | ((long) (b[off++] & 0xff) << 48) 
+                | ((long) (b[off++] & 0xff) << 40) 
+                | ((long) (b[off++] & 0xff) << 32)
+                | ((long) (b[off++] & 0xff) << 24)
+                | ((long) (b[off++] & 0xff) << 16)
+                | ((long) (b[off++] & 0xff) << 8)
+                | ((long) (b[off++] & 0xff)));
+    	
+        //long data = (((b[off++] & 0xff) << 24) | ((b[off++] & 0xff) << 16) | ((b[off++] & 0xff) << 8) | (b[off] & 0xff));
+        return data;
+    }
+    
+	public static void add()
+	{
+		returnevent(mEventsBuffer + BUFFER_INCREMENT_VALUE);
+	}
+	public static void returnevent(int eve)
+	{
+		mEventsBuffer = (short) eve;
+		System.out.println(" mEventsBuffer : " + mEventsBuffer);
+	}
+	
+    public static void main(String[] args)
+    { 
+
+    	Integer arr[] = new Integer[3];
+    	
+    	System.out.print("array = " );
+    	System.out.print(arr[0] + " ");
+    	System.out.print(arr[1] + " ");
+    	System.out.println(arr[2] + " ");
+    	
+    	arr[0] = 0;
+    	arr[1] = null;
+    	arr[2] = 2;
+    	
+    	System.out.print(arr[0] + " ");
+    	System.out.print(arr[1] + " ");
+    	System.out.println(arr[2] + " ");
+    	
+    	      Integer arr1[] = { 90, 1, 2, 3, 4, 5 };
+    	      Integer arr2[] = { 9, 10, 20, 30, 40, 50,60,100 };
+    	    
+    	      // copies an array from the specified source array
+    	      System.arraycopy(arr1, 0, arr2, 0, 1);
+    	      
+    	      arr2[0] = null;
+    	      System.out.print("array2 = ");
+    	      System.out.print(arr2[0] + " ");
+    	      System.out.print(arr2[1] + " ");
+    	      System.out.print(arr2[2] + " ");
+    	      System.out.print(arr2[3] + " ");
+    	      System.out.println(arr2[4] + " ");
+    	      System.out.println(arr2.length + " ");
+    	      System.out.println(arr1.length + " ");
+    	      
+    	      System.out.print("array1 = ");
+    	      System.out.print(arr1[0] + " ");
+    	      System.out.print(arr1[1] + " ");
+    	      System.out.print(arr1[2] + " ");
+    	      System.out.print(arr1[3] + " ");
+    	      System.out.println(arr1[4] + " ");
+    	
+//    	try{
+//    		while(true)
+//    		{	
+//    			add();
+//    		}
+//    	}
+//    	catch(Exception e)
+//    	{
+//    		System.out.println("Exception : " + e);
+//    	}
+    	
+//    	byte buffer[] = new byte[100];
+//    	long ts = (long)1420448717108l;
+//    	int index = 0;
+//    	
+//    	index += setBuffer(ts, buffer,index);
+//    	
+//    	long TSO = readLong(buffer, 0);
+//    	
+//    	System.out.print(" ts : " + ts);
+//    	System.out.print(" TSO : " + TSO);
+//    	
+//        System.out.println ("LONG Max Value is : " + Long.MAX_VALUE + " , ");
+//        System.out.println("LONG Size is : " + Long.SIZE);
+//        System.out.println("LONG min Value is : " + Long.MIN_VALUE);
+//        System.out.println ("INTEGER Max Value is : " + Integer.MAX_VALUE + " , ");
+//        System.out.println("INTEGER Size is : " + Integer.SIZE);
+//        System.out.println("INTEGER min Value is : " + Integer.MIN_VALUE);
+//        System.out.println ("FLOAT Max Value is : " + Float.MAX_VALUE + " , ");
+//        System.out.println("FLOAT Size is : " + Float.SIZE);
+//        System.out.println("FLOAT min Value is : " + Float.MIN_VALUE);
+//        System.out.println ("DOUBLE Max Value is : " + Double.MAX_VALUE + " , ");
+//        System.out.println("DOUBLE Size is : " + Double.SIZE);
+//        System.out.println("DOUBLE min Value is : " + Double.MIN_VALUE);
+//        System.out.println("SysProp : " + System.getProperty("java.home"));
+//        float processValue = 0.0f;
+//        processValue = Float.intBitsToFloat(4294);
+//        //processValue = (processValue * 0.1f);
+//        System.out.println("processValue : " + processValue);
+//        //float value = 4.294967295E9f;
+//        
+//        float value = 4294967295f;
+//        byte[] byteval = new byte[4];
+//        int test = Float.floatToRawIntBits(value);
+//        System.out.println("Float : " + value + " to Long : " + test);
+//        int w = 0;
+//        for (int x = 24; x >= 0; w++, x -= 8)
+//        {
+//        	byteval[w] = (byte) ((Float.floatToRawIntBits(value) >> x) & 0xff);
+////            mModuleConfiguration[i + j - offset] = (byte) (n & 0xFFFFFFFF); // counting starting value
+////            mModuleConfiguration[(i + 16 + j) - offset] = (byte) 0xFFFFFFFFL; // counting ending value
+////            value = n >> 8;
+//        	 //System.out.println("ByteVal : " + byteval[w] );
+//        }
+//        ByteBuffer buf = ByteBuffer.wrap(byteval);  
+//        System.out.println("ByteVal" + buf.getFloat());  
+//        
+//       // byte byteval = (byte)(value);
+//       // System.out.println("ByteVal : " + byteval );
+//        
+//        long val = 0x100000000L;
+//        
+//        long val1 = 0x1L << 32;
+//        
+//        System.out.println("val : " + val + " , val1 : " + val1);
+//        
+//        byte valueToSet = 0x00;
+//        int cntr = 1;
+//        System.out.println(3 >>> 3);
+//        short tempLastValidValue = 0;
+//        short mChannelVal = 0;
+//        boolean[] input = {true, false, true, true, true, true, false, true };
+//        for(int i = 0; i < 8 ; i++ )
+//        {
+//            if (input[i])
+//            {
+//                valueToSet |= cntr;
+//            }
+//            mChannelVal = (short)(valueToSet & cntr);
+//            tempLastValidValue = (short)(tempLastValidValue | mChannelVal);
+//            cntr = cntr << 1;
+//        }
+//
+//        if ((tempLastValidValue & cntr) == cntr)
+//        {
+//            valueToSet |= cntr;
+//        }
+//        
+//        System.out.println("tempLastValidValue : " + tempLastValidValue);
+//        System.out.println("valueToSet : " + valueToSet);
+//        for(int i =0;i<16;i++)
+//            {
+//                System.out.println("i : " + i + ", value : " + (6+(i >> 3)));
+//            }
+//        //byte[] message = {0x51,0x62,(byte)0x8E,0x4A,(byte)0xA6,0x00};
+//        byte[] message = {0x51,0x62,(byte)0x8E,0x4A,(byte)0xA5,(byte)0xCA};
+//        long timeStamp = calculateTimeStamp(message, 0);
+//        
+//        System.out.println("timeStamp : " + timeStamp);
+//        
+//        int offset=48;
+//        for (int i = 0; i < 16; i++)
+//        {
+//            System.out.println(offset + i >> 3);
+//        }
+//
+//        byte a[] = {(byte)0xff, (byte)0xff};
+//        
+//        short b = (short)((a[1] & 0xff << 8) | (a[0] & 0xff));
+//        
+//        System.out.println("b : " + b);
+//        byte previousValue = 0x46;
+//        byte VALUE_MASK = 0x1;
+//        System.out.println("Value : " + (previousValue & ~VALUE_MASK));
+//        
+//        int iA = 0x100;
+//        int iB = 0x08;
+//        int iC = 0;
+//        
+//        iA |= iB;
+//        System.out.println(" iA : " + iA);
+//        
+//        iC = iA & ~(0x08);
+//        System.out.println(" iC : " + iC);
+//        
+//        iA &= iC;
+//        
+//        System.out.println(" iA : " + iA);
+//        
+//        iA &= iB;
+//        
+//        System.out.println(" iA : " + ~iA);
+//        
+//        boolean multipleAlarm = ((iB & ~iA) != 0);
+//        
+//        System.out.println(" iB & ~iA : " +(iB & ~iA));
+//        
+//       // iA &= iB;
+//        
+//        System.out.println(" iA 2 : " + iA);
+//        
+//        System.out.println(" multipleAlarm : " + multipleAlarm);
+//        
+//        int valueFilterBit = 1;
+//        byte[] m = {1, 0};
+//        short mModuleSignalShort = (short)(((m[1] & 0xff) << 8) | (m[0] & 0xff));
+//        
+//        System.out.println("(mModuleSignalShort & valueFilterBit) != 0) : " + ((mModuleSignalShort & valueFilterBit) != 0));
+//        
+//        System.out.println("(m[1] & 0xff << 8) : " + ((1 & 0xff) << 8));
+//        System.out.println("mModuleSignalShort : " + mModuleSignalShort);
+//        
+//        float ax = 870.0f;
+//        float f = 1.0f;
+//        ax =  (ax * f * 0.001f);
+//        System.out.println("values : " + ax);
+//        byte x = (byte) 0x1C;
+//        if ((x & 0x80) == 0)
+//        {
+//            System.out.println("BAD");
+//        }
+//        else
+//        {
+//            System.out.println("GOOD");
+//        }
+//        
+//        byte[] num = new byte[4];
+//        
+//        for (int j = 3; j >= 0; j--)
+//        {
+//            num[j] = (byte) 0xFF;
+//        }
+//        System.out.println ("FLOAT is : " + Float.MAX_VALUE + " , ");
+//        
+//        System.out.println ("i is : " + num);
+//        int n = 1;
+//        System.out.println ("out : " +( 0 + (n|~n)));
+//        MyObject obj = new MyObject() ;
+//        System.out.println(obj + "");
+//        
+//        byte[] buff = new byte[2];
+//        float fbuff = 0.0f;
+//        buff[0] = 0x00;
+//        buff[1] = 0x10;
+//        
+//        fbuff = (((buff[0] & 0xff) << 8) | ((buff[1] & 0xff)));
+//        
+//        System.out.println("fbuff : " + "" + fbuff);
+//        
+//        short i = (short)(0xFF << 8 | 0xFF);
+//        //int i = 0xFFFF;
+//        System.out.println("i : " + "" + i);
+    }
+    
+    public static long calculateTimeStamp(byte[] ispTime, int offset)
+    {
+        
+        long tmp;
+        double milliSeconds;
+        double fraction;
+        
+        tmp = ispTime[offset] & 0xff; // seconds since 1900-01-01
+        tmp <<= 8;
+        tmp |= ispTime[offset + 1] & 0xff;
+        tmp <<= 8;
+        tmp |= ispTime[offset + 2] & 0xff;
+        tmp <<= 8;
+        tmp |= ispTime[offset + 3] & 0xff;
+        
+        milliSeconds = tmp * 1000;
+        
+        tmp = ispTime[offset + 4] & 0xff; // fractions of seconds * 1/(2^16)
+        tmp <<= 8;
+        tmp |= ispTime[offset + 5] & 0xff;
+        
+        fraction = tmp * (16.0) * (1.0 / 1000.0);
+        
+        milliSeconds = milliSeconds + fraction;
+        
+        return (long) milliSeconds;
+        
+    }
+}
+
